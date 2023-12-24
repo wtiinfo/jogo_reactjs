@@ -10,9 +10,9 @@ import { wordsList } from "./data/words";
 
 //Possivel criar fora da function
 const stages = [
-  {id: 1, name: "start"},
-  {id: 2, name: "game"},
-  {id: 3, name: "end"}
+  { id: 1, name: "start" },
+  { id: 2, name: "game" },
+  { id: 3, name: "end" }
 ];
 
 function App() {
@@ -35,13 +35,16 @@ function App() {
     //pegando uma palavra dentro da categoria atual
     const word = words[category][Math.floor(Math.random() * words[category].length)];
     console.log(word);
-  }
+
+    return { word, category };
+  };
 
   //mudando tela
   const startGame = () => {
     //pegar a palavra e a categoria
-    pickWordAndCategory();
-    
+    const { word, category } = pickWordAndCategory();
+    console.log(word, category);
+
     setGameStage(stages[1].name);
   }
 
