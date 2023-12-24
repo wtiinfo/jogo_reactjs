@@ -43,7 +43,15 @@ function App() {
   const startGame = () => {
     //pegar a palavra e a categoria
     const { word, category } = pickWordAndCategory();
-    console.log(word, category);
+    
+    // criando um array com a palavra sorteada
+    let wordLetters = word.split("");
+    wordLetters = wordLetters.map((l) => l.toLowerCase());
+    console.log(wordLetters);
+    //atualizando states
+    setPickedWord(word);
+    setPickedCategory(category);
+    setLetters(letters);
 
     setGameStage(stages[1].name);
   }
