@@ -34,11 +34,11 @@ const Game = ({
             </h3>
             <p>Você ainda tem {guesses} tentativa{guesses > 1 ? (<span>s</span>) : ("")}</p>
             <div className="wordContainer">
-                {letters.map((l, index) => (
+                {letters.map((l, index) => 
                     guessedLetters.includes(l) ? 
                     (<span key={index} className="letter">{l}</span>) : 
                     (<span key={index} className="blankSquare"></span>)
-                ))}
+                )}
             </div>
 
             <div className="letterContainer">
@@ -51,8 +51,8 @@ const Game = ({
 
             <div className="wrongLettersContainer">
                 <p>Letras já utilizadas</p>
-                {wrongLetters.map((l, index) => 
-                <span key={index}>{l},</span>)}
+                {wrongLetters.map((l, index) => (
+                <span key={index}>{l},</span>))}
             </div>
         </div>
     );
