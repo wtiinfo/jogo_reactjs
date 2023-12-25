@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import "./Game.css";
-
+import { useState } from 'react';
+ 
 const Game = ({ 
     verifyLetter, 
     pickedWord, 
@@ -11,6 +12,14 @@ const Game = ({
     wrongLetters, 
     guesses, 
     score}) => {
+
+    const [letter, setLetter] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        verifyLetter(letter);
+    }
+
     return (
         <div className="game">
             <p className="points">
@@ -31,8 +40,8 @@ const Game = ({
 
             <div className="letterContainer">
                 <p>Tente adivinhar uma letra da palavra:</p>
-                <form>
-                    <input type="text" name="letter" maxLength="1" required />
+                <form onSubmit={handleSubmit}>
+                    <input onChange={(e) => setLetter(e.target.value)} value={letter} type="text" name="letter" maxLength="1" required />
                     <button>Jogar</button>
                 </form>
             </div>
