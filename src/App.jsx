@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 
 import './App.css';
 import StartScreen from './components/StartScreen';
@@ -25,6 +26,12 @@ function App() {
   const [pickedCategory, setPickedCategory] = useState("");
   const [letters, setLetters] = useState([]);//LISTA DE LETRAS
 
+  const [guessedLetters, setGuessedLetters] = useState([]);
+  const [wrongLetters, setWrongLetters] = useState([]);
+  const [guesses, setGuesses] = useState(3);
+  const [score, setScore] = useState(0);
+
+
 
   const pickWordAndCategory = () => {
     //pegando uma categoria aleatoriamente
@@ -43,7 +50,7 @@ function App() {
   const startGame = () => {
     //pegar a palavra e a categoria
     const { word, category } = pickWordAndCategory();
-    
+
     // criando um array com a palavra sorteada
     let wordLetters = word.split("");
     wordLetters = wordLetters.map((l) => l.toLowerCase());
@@ -69,7 +76,15 @@ function App() {
   return (
     <>
       {gameStage === "start" && <StartScreen startGame={startGame} />}
-      {gameStage === "game" && <Game verifyLetter={verifyLetter} />}
+      {gameStage === "game" && <Game 
+      verifyLetter={verifyLetter} 
+      pickedWord={pickedWord} 
+      pickedCategory={pickedCategory} 
+      letters={letters}
+      guessedLetters={guessedLetters}
+      wrongLetters={wrongLetters}
+      guesse={guesses}
+      score={score} />}
       {gameStage === "end" && <GameOver retry={retry} />}
     </>
   )
