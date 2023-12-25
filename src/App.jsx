@@ -16,6 +16,8 @@ const stages = [
   { id: 3, name: "end" }
 ];
 
+const guessesQty = 3;
+
 function App() {
 
 
@@ -28,8 +30,8 @@ function App() {
 
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
-  const [guesses, setGuesses] = useState(3);
-  const [score, setScore] = useState(0);
+  const [guesses, setGuesses] = useState(guessesQty);
+  const [score, setScore] = useState(50);
 
 
 
@@ -75,19 +77,34 @@ function App() {
 
     //guarda a letra adivinha ou descata o palpite
     if(letters.includes(normalizedLetter)) {
-      //actualGuessedLetters e actualWrongLetters variaveis locais lambda
       setGuessedLetters((actualGuessedLetters) => [...actualGuessedLetters, normalizedLetter]);
     } else {
       setWrongLetters((actualWrongLetters) => [...actualWrongLetters, normalizedLetter]);
+  
+    setGuesses((actualGuesses) => actualGuesses - 1);
     }
-
-    
   }
-  console.log(guessedLetters);
-  console.log(wrongLetters, "Erradas");
+  
+
+  const clearLetterStates = () => {
+    setGuessedLetters([]);
+    setWrongLetters([]);
+  }
+
+  useEffect(() => {
+    if(guesses <= 0) {
+    //reset todos os states para previnir o reset do jogo com 0 tentativas
+    clearLetterStates();
+
+    setGameStage(stages[2].name);
+
+    }
+  }, [guesses]);
 
   //restart
   const retry = () => {
+    setScore(0);
+    setGuesses(guessesQty);
     setGameStage(stages[0].name);
   }
 
@@ -103,7 +120,7 @@ function App() {
       wrongLetters={wrongLetters}
       guesses={guesses}
       score={score} />}
-      {gameStage === "end" && <GameOver retry={retry} />}
+      {gameStage === "end" && <GameOver retry={retry} score={score} />}
     </>
   )
 }
