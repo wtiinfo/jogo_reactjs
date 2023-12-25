@@ -58,7 +58,7 @@ function App() {
     //atualizando states
     setPickedWord(word);
     setPickedCategory(category);
-    setLetters(letters);
+    setLetters(wordLetters);
 
     setGameStage(stages[1].name);
   }
@@ -83,7 +83,7 @@ function App() {
       letters={letters}
       guessedLetters={guessedLetters}
       wrongLetters={wrongLetters}
-      guesse={guesses}
+      guesses={guesses}
       score={score} />}
       {gameStage === "end" && <GameOver retry={retry} />}
     </>
