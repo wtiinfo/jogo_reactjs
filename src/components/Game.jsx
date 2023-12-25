@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import "./Game.css";
-import { useState } from 'react';
+import { useState, useRef } from 'react';
  
 const Game = ({ 
     verifyLetter, 
@@ -14,10 +14,13 @@ const Game = ({
     score}) => {
 
     const [letter, setLetter] = useState("");
+    const letterInputRef = useRef(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         verifyLetter(letter);
+        setLetter(""); // limpando o campo de input
+        letterInputRef.current.focus(); // trazendo o foco para o input, usando a valor null como padrao
     }
 
     return (
@@ -41,7 +44,7 @@ const Game = ({
             <div className="letterContainer">
                 <p>Tente adivinhar uma letra da palavra:</p>
                 <form onSubmit={handleSubmit}>
-                    <input onChange={(e) => setLetter(e.target.value)} value={letter} type="text" name="letter" maxLength="1" required />
+                    <input ref={letterInputRef} onChange={(e) => setLetter(e.target.value)} value={letter} type="text" name="letter" maxLength="1" required />
                     <button>Jogar</button>
                 </form>
             </div>
