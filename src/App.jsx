@@ -65,8 +65,26 @@ function App() {
 
   //processar letra inserida
   const verifyLetter = (letter) => {
-    console.log(letter);
+    //padronizando a letra para o formato correto
+    const normalizedLetter = letter.toLowerCase();
+
+    //checando se a letra ja foi usada
+    if(guessedLetters.includes(normalizedLetter) || wrongLetters.includes(normalizedLetter)){
+      return;
+    }
+
+    //guarda a letra adivinha ou descata o palpite
+    if(letters.includes(normalizedLetter)) {
+      //actualGuessedLetters e actualWrongLetters variaveis locais lambda
+      setGuessedLetters((actualGuessedLetters) => [...actualGuessedLetters, normalizedLetter]);
+    } else {
+      setWrongLetters((actualWrongLetters) => [...actualWrongLetters, normalizedLetter]);
+    }
+
+    
   }
+  console.log(guessedLetters);
+  console.log(wrongLetters, "Erradas");
 
   //restart
   const retry = () => {
